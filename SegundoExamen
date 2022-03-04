@@ -1,0 +1,119 @@
+/*examen*/
+
+select * from bd_factsv2.tbl_asesores;
+select * from bd_factsv2.tbl_clientes;
+select * from bd_factsv2.tbl_facturas;
+select * from bd_factsv2.tbl_productos;
+select * from bd_factsv2.tbl_productos_facturados;
+
+#Parte 1
+Drop Procedure if Exists SP_productos_facturados;
+Delimiter //
+Create Procedure SP_productos_facturados(
+	in p_idfactura 	        int(207), 
+    in p_idproducto         int(1000),
+    in p_cantidad			varchar(3)
+   
+)
+Begin
+	declare  v_idfactura 	      int,
+	declare  v_idproducto         int,
+	declare  v_cantidad			varchar(0)
+	
+
+	set  v_idfactura 	= p_idfactura; 	 
+	set  v_idproducto   = p_idproducto; 
+	set  v_cantidad		= p_cantidad;
+	
+		
+    update bd_factsv2.tbl_productos_facturados
+		set p_idfactura 	= idfactura; 
+        set p_idproducto    = idproducto; 
+	    set p_cantidad		= cantidad;
+    
+	commit;
+End; 
+
+
+
+Drop Procedure if Exists SP_productos_facturados;
+Delimiter //
+Create Procedure SP_productos_facturados(
+	in p_idfactura 	        int, 
+    in p_idproducto         int,
+    in p_cantidad			varchar(0)
+  
+)
+
+Begin
+	declare  v_idfactura 	      int,
+	declare  v_idproducto         int,
+	declare  v_cantidad			varchar(0)
+
+
+	set  v_idfactura 	= p_idfactura; 	 
+	set  v_idproducto   = p_idproducto; 
+	set  v_cantidad		= p_cantidad;
+	
+        
+    update bd_factsv2.tbl_productos_facturados
+		set p_idfactura 	= idfactura; 
+        set p_idproducto    = idproducto; 
+	    set p_cantidad		= cantidad;
+		
+      delimiter //
+CREATE PROCEDURE SP_productos_facturados(
+    in p_max int 
+)
+BEGIN
+    declare i int default 0;  
+    declare  v_idfactura varchar(0); 
+	declare lista varchar(0);
+    
+    set lista = "";
+    
+    while i < p_max do 
+		set i = i+1;
+        /*
+		select  idproducto  into  v_idproducto
+		from bd_factsv2.tbl_productos_facturados where idproducto = i; 
+        
+        set lista = concat(lista,',',v_idproducto);
+        */
+    end while;
+    select lista ;  
+        
+	commit;
+End;
+
+BEGIN
+	
+	commit; 
+End; 
+
+#Parte 2
+/*saldoUnidad*/
+
+Create Procedure SP_bd_factsv2.tbl_productos(
+	in p_saldoUnidad	        int, 
+  
+)
+
+Begin
+	declare  v_saldoUnidad 	      int,
+    
+	set  v_saldoUnidad 	= p_saldoUnidad; 	
+    
+    update bd_factsv2.tbl_productos_facturados
+		set p_saldoUnidad	= saldoUnidad; 
+  	commit; 
+End;       
+#Parte 3
+
+Begin
+update bd_factsv2.tbl_productos_facturados
+		set p_idfactura 	= idfactura; 
+        set p_idproducto    = idproducto; 
+	    set p_cantidad		= cantidad;
+	commit; 
+End; 	
